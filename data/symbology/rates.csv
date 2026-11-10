@@ -1,0 +1,12 @@
+# last_reviewed: 2026-11-09
+# Government yields (ID GOVT) -> US Treasury daily par yield curve column. FRED is not used.
+id,name,source,treasury_series
+US1M,US Treasury 1 month,treasury,US1M
+US3M,US Treasury 3 month,treasury,US3M
+US6M,US Treasury 6 month,treasury,US6M
+US1Y,US Treasury 1 year,treasury,US1Y
+US2Y,US Treasury 2 year,treasury,US2Y
+US5Y,US Treasury 5 year,treasury,US5Y
+US10Y,US Treasury 10 year,treasury,US10Y
+US20Y,US Treasury 20 year,treasury,US20Y
+US30Y,US Treasury 30 year,treasury,US30Y

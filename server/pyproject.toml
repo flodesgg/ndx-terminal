@@ -1,0 +1,66 @@
+[project]
+name = "ndx-server"
+version = "0.1.0"
+description = "Local data service for NDX Terminal"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "duckdb>=2.0.0",
+    "exchange-calendars>=4.13.2",
+    "fastapi>=0.162.2",
+    "feedparser>=6.0.14",
+    "httpx>=0.28.1",
+    "keyring>=25",
+    "pandas>=3.1.1",
+    "pydantic>=2.14.3",
+    "pydantic-settings>=2.16.2",
+    "python-dotenv>=1.2.4",
+    "uvicorn[standard]>=0.54.0",
+    "websockets>=17.4",
+    "yfinance==1.8.0",
+]
+
+[project.scripts]
+ndx-server = "ndx_server.main:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ndx_server"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "ASYNC"]
+ignore = ["RUF012"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["yfinance.*", "exchange_calendars.*", "feedparser.*", "pandas.*", "duckdb.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning:exchange_calendars.*", "ignore:.*:pandas.errors.Pandas4Warning"]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.1",
+    "pandas-stubs>=3.1.0.261029",
+    "pyinstaller>=6.22.3",
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1.post1",
+    "respx>=0.23.1",
+    "ruff>=0.17.4",
+    "types-python-dateutil>=2.9.0.20261104",
+]

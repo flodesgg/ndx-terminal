@@ -1,0 +1,41 @@
+# last_reviewed: 2026-11-09
+# Fiat currencies for PAIR CURNCY IDs and their official reference source (SPEC §5, PROVIDERS P6).
+# ecb: in the ECB euro reference rates. UAH has no ECB rate; NBU is the official source.
+code,name,reference
+USD,US dollar,ECB
+EUR,Euro,ECB
+JPY,Japanese yen,ECB
+GBP,Pound sterling,ECB
+CHF,Swiss franc,ECB
+CAD,Canadian dollar,ECB
+AUD,Australian dollar,ECB
+NZD,New Zealand dollar,ECB
+SEK,Swedish krona,ECB
+NOK,Norwegian krone,ECB
+DKK,Danish krone,ECB
+PLN,Polish zloty,ECB
+CZK,Czech koruna,ECB
+HUF,Hungarian forint,ECB
+UAH,Ukrainian hryvnia,NBU
+TRY,Turkish lira,ECB
+CNY,Chinese yuan renminbi,ECB
+CNH,Offshore yuan,
+HKD,Hong Kong dollar,ECB
+SGD,Singapore dollar,ECB
+KRW,South Korean won,ECB
+INR,Indian rupee,ECB
+MXN,Mexican peso,ECB
+BRL,Brazilian real,ECB
+ZAR,South African rand,ECB
+ILS,Israeli shekel,ECB
+RON,Romanian leu,ECB
+BGN,Bulgarian lev,
+ISK,Icelandic krona,ECB
+THB,Thai baht,ECB
+TWD,New Taiwan dollar,
+IDR,Indonesian rupiah,ECB
+MYR,Malaysian ringgit,ECB
+PHP,Philippine peso,ECB
+SAR,Saudi riyal,
+AED,UAE dirham,
+RUB,Russian rouble,

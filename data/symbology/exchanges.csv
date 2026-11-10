@@ -1,0 +1,17 @@
+# last_reviewed: 2026-11-09
+# Exchange codes for canonical IDs (TICKER EXCH EQUITY) -> venue facts and provider suffixes.
+# Hand-curated (SPEC §5). MIC per ISO 10383; US is the consolidated composite (no single MIC).
+code,name,mic,country,currency,tz,yahoo_suffix,eodhd_suffix
+US,US composite,,US,USD,America/New_York,,.US
+DC,Nasdaq Copenhagen,XCSE,DK,DKK,Europe/Copenhagen,.CO,.CO
+SS,Nasdaq Stockholm,XSTO,SE,SEK,Europe/Stockholm,.ST,.ST
+NO,Oslo Bors,XOSL,NO,NOK,Europe/Oslo,.OL,.OL
+FH,Nasdaq Helsinki,XHEL,FI,EUR,Europe/Helsinki,.HE,.HE
+GY,Xetra,XETR,DE,EUR,Europe/Berlin,.DE,.XETRA
+LN,London Stock Exchange,XLON,GB,GBP,Europe/London,.L,.LSE
+FP,Euronext Paris,XPAR,FR,EUR,Europe/Paris,.PA,.PA
+NA,Euronext Amsterdam,XAMS,NL,EUR,Europe/Amsterdam,.AS,.AS
+SW,SIX Swiss Exchange,XSWX,CH,CHF,Europe/Zurich,.SW,.SW
+JT,Tokyo Stock Exchange,XTKS,JP,JPY,Asia/Tokyo,.T,.TSE
+HK,Hong Kong Exchanges,XHKG,HK,HKD,Asia/Hong_Kong,.HK,.HK
+KS,Korea Exchange,XKRX,KR,KRW,Asia/Seoul,.KS,.KO

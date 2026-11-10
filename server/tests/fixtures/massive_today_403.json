@@ -1,0 +1,8 @@
+{
+ "body": {
+  "message": "Your plan doesn't include this data timeframe. Please upgrade your plan at https://polygon.io/pricing",
+  "request_id": "00000000000000000000000000000403",
+  "status": "NOT_AUTHORIZED"
+ },
+ "status": 403
+}

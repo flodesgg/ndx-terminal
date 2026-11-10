@@ -1,0 +1,52 @@
+# last_reviewed: 2026-11-10
+# ECO (SPEC §8): calendar entry -> one or more lines (event name, importance 1-3, series for
+# actual/prior). Entries a source lists but this file does not are shown once, importance 1,
+# without values — except FRED, whose release dates include data-feed updates, so only the
+# releases below are taken from it.
+# source: fred (release id; BLS blocks automated access without the user's contact details,
+#   so BLS/Census/Fed release dates come from FRED, docs/PROVIDERS.md §3.12), bea (title in
+#   release_dates.json), fed (FOMC meetings page), eurostat (Euro indicators ICS title), ecb_mp
+#   (ECB meetings page), ecb_stat (ECB statistical calendar title), dst (StatBank release title).
+# match: release id (fred) or a case-insensitive regex searched in the title.
+# std_time/tz: the issuer's standard release time, used only when the calendar gives the date
+#   alone (FRED, Eurostat, the meeting pages); shown with a marker. Empty = the calendar's time.
+# series: provider:id[?dim=value&...] — fred:ID, eurostat:dataset?filters, dst:TABLE?VAR=value,
+#   ecb:FLOW/KEY. transform: level | mom (% vs previous obs) | yoy (% vs a year earlier) |
+#   diff (change vs previous obs). scale divides the value (1000: persons -> K). mode: release
+#   (newest release <-> newest observation) | estimate (flash/second/final estimates share one
+#   series: only the newest released line gets values) | date:N (policy rate: actual = the
+#   value from N days after the decision, when it takes effect; prior = the decision day's).
+source,match,country,event,importance,std_time,tz,series,transform,scale,unit,digits,mode
+fred,10,US,CPI MoM,3,08:30,America/New_York,fred:CPIAUCSL,mom,1,%,1,release
+fred,10,US,CPI YoY,3,08:30,America/New_York,fred:CPIAUCNS,yoy,1,%,1,release
+fred,10,US,Core CPI MoM,2,08:30,America/New_York,fred:CPILFESL,mom,1,%,1,release
+fred,50,US,Nonfarm payrolls,3,08:30,America/New_York,fred:PAYEMS,diff,1,K,0,release
+fred,50,US,Unemployment rate,3,08:30,America/New_York,fred:UNRATE,level,1,%,1,release
+fred,50,US,Average hourly earnings MoM,2,08:30,America/New_York,fred:CES0500000003,mom,1,%,1,release
+fred,46,US,PPI final demand MoM,2,08:30,America/New_York,fred:PPIFIS,mom,1,%,1,release
+fred,9,US,Retail sales MoM,3,08:30,America/New_York,fred:RSAFS,mom,1,%,1,release
+fred,180,US,Initial jobless claims,2,08:30,America/New_York,fred:ICSA,level,1000,K,0,release
+fred,13,US,Industrial production MoM,2,09:15,America/New_York,fred:INDPRO,mom,1,%,1,release
+fred,27,US,Housing starts (SAAR),2,08:30,America/New_York,fred:HOUST,level,1,K,0,release
+fred,97,US,New home sales (SAAR),1,10:00,America/New_York,fred:HSN1F,level,1,K,0,release
+fred,91,US,UMich consumer sentiment,2,10:00,America/New_York,fred:UMCSENT,level,1,,1,release
+fred,192,US,JOLTS job openings,2,10:00,America/New_York,fred:JTSJOL,level,1,K,0,release
+bea,^Gross Domestic Product$,US,GDP QoQ annualized,3,,,fred:A191RL1Q225SBEA,level,1,%,1,estimate
+bea,^Personal Income and Outlays$,US,Core PCE price index YoY,3,,,fred:PCEPILFE,yoy,1,%,1,release
+bea,^Personal Income and Outlays$,US,Personal spending MoM,2,,,fred:PCE,mom,1,%,1,release
+bea,^U\.S\. International Trade in Goods and Services$,US,Trade balance,2,,,fred:BOPGSTB,level,1000,bn,1,release
+fed,FOMC,US,FOMC rate decision (upper bound),3,14:00,America/New_York,fred:DFEDTARU,level,1,%,2,date:1
+eurostat,^Flash estimate inflation euro area,EZ,HICP flash YoY,3,11:00,Europe/Luxembourg,eurostat:prc_hicp_minr?geo=EA&coicop18=TOTAL&unit=RCH_A,level,1,%,1,release
+eurostat,^Inflation \(HICP\),EZ,HICP YoY (final),2,11:00,Europe/Luxembourg,eurostat:prc_hicp_minr?geo=EA&coicop18=TOTAL&unit=RCH_A,level,1,%,1,estimate
+eurostat,^Unemployment$,EZ,Unemployment rate,2,11:00,Europe/Luxembourg,eurostat:une_rt_m?geo=EA21&s_adj=SA&age=TOTAL&sex=T&unit=PC_ACT,level,1,%,1,release
+eurostat,^Preliminary flash estimate GDP,EZ,GDP QoQ (preliminary flash),3,11:00,Europe/Luxembourg,eurostat:namq_10_gdp?geo=EA21&unit=CLV_PCH_PRE&s_adj=SCA&na_item=B1GQ,level,1,%,1,release
+eurostat,^Flash estimate GDP,EZ,GDP QoQ (flash),2,11:00,Europe/Luxembourg,eurostat:namq_10_gdp?geo=EA21&unit=CLV_PCH_PRE&s_adj=SCA&na_item=B1GQ,level,1,%,1,estimate
+eurostat,^GDP main aggregates,EZ,GDP QoQ,2,11:00,Europe/Luxembourg,eurostat:namq_10_gdp?geo=EA21&unit=CLV_PCH_PRE&s_adj=SCA&na_item=B1GQ,level,1,%,1,estimate
+eurostat,^Industrial production$,EZ,Industrial production MoM,2,11:00,Europe/Luxembourg,eurostat:sts_inpr_m?geo=EA21&nace_r2=B-D&s_adj=SCA&unit=PCH_PRE&indic_bt=PRD,level,1,%,1,release
+eurostat,^Retail trade$,EZ,Retail sales MoM,2,11:00,Europe/Luxembourg,eurostat:sts_trtu_m?geo=EA21&nace_r2=G47&s_adj=SCA&unit=PCH_PRE&indic_bt=VOL_SLS,level,1,%,1,release
+ecb_mp,monetary policy meeting.*Day 2,EZ,ECB rate decision (deposit facility),3,14:15,Europe/Berlin,ecb:FM/D.U2.EUR.4F.KR.DFR.LEV,level,1,%,2,date:6
+ecb_stat,^Monetary developments in the euro area,EZ,Money supply M3 (ECB),2,,,,,,,,
+dst,^Consumer price index,DK,CPI YoY,3,,,dst:PRIS01?VAREGR=000000&ENHED=300,level,1,%,1,release
+dst,^Unemployment,DK,Unemployment rate,2,,,dst:AUP01?OMRÅDE=000&ALDER=TOT&KØN=TOT,level,1,%,1,release
+dst,national accounts|^GDP,DK,GDP QoQ,3,,,dst:NKN1?TRANSAKT=B1GQK&PRISENHED=L_V&SÆSON=Y,level,1,%,1,estimate
+dst,^Retail trade,DK,Retail sales MoM,2,,,dst:DETA212A?BRANCHEDB25UDVALG=G47&INDEKSTYPE=SMAENGDE,mom,1,%,1,release

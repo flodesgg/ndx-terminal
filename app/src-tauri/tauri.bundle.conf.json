@@ -1,0 +1,8 @@
+{
+  "bundle": {
+    "externalBin": ["binaries/ndx-server"],
+    "resources": {
+      "resources/ndx-server/": "server/"
+    }
+  }
+}

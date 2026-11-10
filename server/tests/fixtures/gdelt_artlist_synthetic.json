@@ -1,0 +1,29 @@
+{
+  "articles": [
+    {
+      "url": "https://example.com/synthetic/gdelt-1",
+      "url_mobile": "",
+      "title": "Synthetic headline about Example Company results",
+      "seendate": "20261109T141500Z",
+      "socialimage": "",
+      "domain": "example.com",
+      "language": "English",
+      "sourcecountry": "Denmark"
+    },
+    {
+      "url": "https://example.org/synthetic/gdelt-2",
+      "url_mobile": "",
+      "title": "  Second   synthetic headline  ",
+      "seendate": "20261109T101500Z",
+      "socialimage": "",
+      "domain": "example.org",
+      "language": "English",
+      "sourcecountry": "United States"
+    },
+    {
+      "url": "https://example.net/synthetic/gdelt-3",
+      "title": "Row without a seen date is skipped",
+      "domain": "example.net"
+    }
+  ]
+}

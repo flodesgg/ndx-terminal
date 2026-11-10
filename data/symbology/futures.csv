@@ -1,0 +1,12 @@
+# last_reviewed: 2026-11-09
+# Continuous front-month futures (CODE COMDTY / CODE INDEX) -> provider symbols and tick size.
+id,sector,name,yahoo,exchange,currency,tick_size
+CL1,COMDTY,WTI crude oil,CL=F,NYMEX,USD,0.01
+CO1,COMDTY,Brent crude oil,BZ=F,NYMEX,USD,0.01
+NG1,COMDTY,Natural gas (Henry Hub),NG=F,NYMEX,USD,0.001
+GC1,COMDTY,Gold,GC=F,COMEX,USD,0.1
+SI1,COMDTY,Silver,SI=F,COMEX,USD,0.005
+HG1,COMDTY,Copper,HG=F,COMEX,USD,0.0005
+ES1,INDEX,E-mini S&P 500,ES=F,CME,USD,0.25
+NQ1,INDEX,E-mini Nasdaq-100,NQ=F,CME,USD,0.25
+YM1,INDEX,E-mini Dow,YM=F,CBOT,USD,1

@@ -1,0 +1,16 @@
+.env
+.DS_Store
+node_modules/
+dist/
+.venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+server/build/
+server/dist/
+*.spec
+test-results/
+playwright-report/
+app/e2e-out/

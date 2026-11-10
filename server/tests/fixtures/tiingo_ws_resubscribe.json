@@ -1,0 +1,7 @@
+[
+{"response": {"code": 200, "message": "Success"}, "data": {"subscriptionId": 10000001}, "messageType": "I", "_rx_s": 0.776},
+{"response": {"code": 200, "message": "HeartBeat"}, "messageType": "H", "_rx_s": 0.776},
+{"_sent": "remove aapl", "_rx_s": 20.097},
+{"response": {"code": 200, "message": "Success"}, "data": {"thresholdLevel": "6", "tickers": ["msft", "spy", "zzzzqx"]}, "messageType": "I", "_rx_s": 20.246},
+{"_closed": "ConnectionClosedOK: received 1005 (no status received [internal]); then sent 1005 (no status received [internal])", "_rx_s": 20.377}
+]

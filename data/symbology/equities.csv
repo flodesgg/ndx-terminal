@@ -1,0 +1,21 @@
+# last_reviewed: 2026-11-09
+# Equities whose canonical ticker differs from the provider ticker (share classes): the canonical
+# form drops the hyphen (NOVOB DC EQUITY <- NOVO-B.CO). Other tickers map by rule (TICKER + suffix).
+id,name,yahoo
+NOVOB DC,Novo Nordisk B,NOVO-B.CO
+MAERSKA DC,A.P. Moller-Maersk A,MAERSK-A.CO
+MAERSKB DC,A.P. Moller-Maersk B,MAERSK-B.CO
+CARLB DC,Carlsberg B,CARL-B.CO
+COLOB DC,Coloplast B,COLO-B.CO
+NSISB DC,Novonesis B,NSIS-B.CO
+ROCKB DC,Rockwool B,ROCK-B.CO
+AMBUB DC,Ambu B,AMBU-B.CO
+NDADK DC,Nordea Bank (Copenhagen line),NDA-DK.CO
+VOLVB SS,Volvo B,VOLV-B.ST
+ERICB SS,Ericsson B,ERIC-B.ST
+ATCOA SS,Atlas Copco A,ATCO-A.ST
+INVEB SS,Investor B,INVE-B.ST
+HMB SS,H&M B,HM-B.ST
+SEBA SS,SEB A,SEB-A.ST
+BRK/B US,Berkshire Hathaway B,BRK-B
+BF/B US,Brown-Forman B,BF-B

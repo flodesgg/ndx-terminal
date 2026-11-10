@@ -1,0 +1,9 @@
+# last_reviewed: 2026-11-09
+# Crypto: canonical BASEUSD CURNCY -> Binance BASEUSDT. Labelled "quoted in USDT, not USD" (SPEC §5).
+# Unlisted bases follow the same rule.
+id,name,binance,quote_note
+BTCUSD,Bitcoin,BTCUSDT,quoted in USDT
+ETHUSD,Ethereum,ETHUSDT,quoted in USDT
+SOLUSD,Solana,SOLUSDT,quoted in USDT
+XRPUSD,XRP,XRPUSDT,quoted in USDT
+BNBUSD,BNB,BNBUSDT,quoted in USDT

@@ -1,0 +1,1409 @@
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
+:root {
+  /* values: src/theme/tokens.ts (applied before first render) */
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  border-radius: 0 !important;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: var(--fs);
+  line-height: 1.35;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+}
+
+::selection {
+  background: var(--fg);
+  color: var(--on-amber);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font: inherit;
+  background: var(--bg-2);
+  color: var(--fg);
+  border: 1px solid var(--line-2);
+  padding: 1px 6px;
+  cursor: pointer;
+}
+button:hover {
+  border-color: var(--fg);
+}
+button.on {
+  background: var(--fg);
+  color: var(--on-amber);
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: var(--text);
+  background: var(--bg-1);
+  border: 1px solid var(--line-2);
+  padding: 1px 4px;
+  outline: none;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--focus);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100%;
+}
+
+/* ---------- top bar / command line ---------- */
+.topbar {
+  display: flex;
+  align-items: stretch;
+  height: 28px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+}
+.brand {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  background: var(--fg);
+  color: var(--on-amber);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.cmd {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.cmd-prompt {
+  padding: 0 6px 0 10px;
+  color: var(--accent);
+}
+.cmd input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: var(--fg);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.cmd input::placeholder {
+  color: var(--fg-mute);
+  text-transform: none;
+}
+.cmd-error {
+  color: var(--down);
+  padding: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+}
+.cmd-info {
+  color: var(--text-dim);
+  padding: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+/* A long notice (e.g. the one-time F-key tip) wraps in full under the command line. */
+.cmd-note {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-width: none;
+  z-index: 30;
+  white-space: normal;
+  padding: 3px 10px;
+  color: var(--text);
+  background: var(--bg-1);
+  border: 1px solid var(--fg-dim);
+  pointer-events: none;
+}
+/* Chips (SPEC §4.4, §4.7): what the command line has recognised. */
+.chip {
+  margin-right: 4px;
+  padding: 0 5px;
+  line-height: 18px;
+  font-size: 12px;
+  white-space: nowrap;
+  border: 1px solid var(--fg);
+  color: var(--fg);
+}
+.chip-sector {
+  background: var(--fg);
+  color: var(--on-amber);
+  font-weight: 700;
+}
+.chip-security {
+  border-color: var(--fg);
+}
+.chip-function {
+  border-color: var(--link);
+  color: var(--link);
+}
+.chip-sector-mini {
+  border-color: var(--text-dim);
+  color: var(--text-dim);
+  font-size: 10px;
+  line-height: 14px;
+  margin-right: 6px;
+}
+.suggest-row.sel .chip-sector-mini {
+  border-color: var(--on-amber);
+  color: var(--on-amber);
+}
+.suggest-row .tag-primary {
+  color: var(--text-dim);
+  font-size: 10px;
+}
+.suggest {
+  position: absolute;
+  top: 100%;
+  left: 24px;
+  min-width: 520px;
+  max-width: 760px;
+  z-index: 50;
+  background: var(--bg-1);
+  border: 1px solid var(--fg-dim);
+}
+.suggest-row {
+  display: grid;
+  grid-template-columns: minmax(110px, max-content) 1fr auto;
+  gap: 10px;
+  padding: 2px 8px;
+  color: var(--text);
+}
+.suggest-row.sel {
+  background: var(--fg);
+  color: var(--on-amber);
+}
+.suggest-row .code {
+  color: var(--fg);
+  font-weight: 700;
+}
+.suggest-row.sel .code {
+  color: var(--on-amber);
+}
+.suggest-row .kind {
+  color: var(--text-dim);
+}
+.suggest-row.sel .kind {
+  color: var(--on-amber);
+}
+
+/* ---------- workspace ---------- */
+.workspace {
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+}
+.split {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+.split.col {
+  flex-direction: column;
+}
+.split > .pane {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+}
+.divider {
+  flex: 0 0 3px;
+  background: var(--line);
+}
+.split.row > .divider {
+  cursor: col-resize;
+}
+.split.col > .divider {
+  cursor: row-resize;
+}
+.divider:hover,
+.divider.drag {
+  background: var(--fg-dim);
+}
+
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  outline: none;
+}
+.panel.active {
+  border-color: var(--fg-dim);
+}
+/* §4.2 focus token: amber, not the link colour (review 1a #35). */
+.panel.active:focus {
+  border-color: var(--focus);
+}
+/* §4.1 title bar: dark red, white text. */
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+  flex: 0 0 20px;
+  padding: 0 6px;
+  background: var(--title-bar-bg);
+  color: var(--title-bar-fg);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.panel:not(.active) .panel-head {
+  opacity: 0.8;
+}
+.panel-idx {
+  color: var(--on-amber);
+  background: var(--fg-dim);
+  padding: 0 4px;
+  font-weight: 700;
+}
+.panel.active .panel-idx {
+  background: var(--fg);
+}
+.panel-fn {
+  color: var(--title-bar-fg);
+  font-weight: 700;
+}
+.panel-ticker {
+  color: var(--title-bar-fg);
+  font-weight: 700;
+}
+.panel-title {
+  color: var(--title-bar-fg);
+  font-family: var(--font-title, inherit);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.panel {
+  position: relative;
+}
+/* Numbered items N) — title bar 95–97, toolbar 1–94 and 98–99. */
+.item {
+  background: transparent;
+  border: 0;
+  padding: 0 4px;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.item:hover,
+.item:focus-visible {
+  background: var(--amber-wash);
+  outline: none;
+}
+.item-n {
+  color: var(--fg);
+}
+.panel-head .item-n {
+  color: var(--title-bar-fg);
+  font-weight: 700;
+}
+.title-items {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+}
+/* §4.1 toolbar: grey. */
+.win-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  flex: 0 0 20px;
+  padding: 0 6px;
+  background: var(--toolbar);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 11px;
+}
+.win-tools > button:not(.item):not(.link-dot) {
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  padding: 0 3px;
+  cursor: pointer;
+}
+.win-tools > button:disabled {
+  color: var(--dim);
+  cursor: default;
+}
+.win-tools .sep {
+  width: 1px;
+  height: 12px;
+  background: var(--line-2);
+}
+.win-tools .grow {
+  flex: 1;
+}
+/* §4.1 hint bar: dim. */
+.win-hints {
+  height: 16px;
+  flex: 0 0 16px;
+  padding: 0 6px;
+  border-top: 1px solid var(--line);
+  color: var(--dim);
+  font-size: 10px;
+  line-height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 95 / 96 / 97 menus. */
+.win-popup {
+  position: absolute;
+  top: 44px;
+  right: 6px;
+  z-index: 40; /* above a wrapped notice (.cmd-note) */
+  min-width: 260px;
+  max-width: calc(100% - 12px);
+  background: var(--bg-1);
+  border: 1px solid var(--fg-dim);
+  padding-bottom: 4px;
+}
+.menu-row {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  font: inherit;
+  padding: 1px 8px;
+  cursor: pointer;
+}
+.menu-row.on,
+.menu-row:focus {
+  background: var(--fg);
+  color: var(--on-amber);
+  outline: none;
+}
+.menu-row.on .item-n,
+.menu-row:focus .item-n {
+  color: var(--on-amber);
+}
+.menu-row .item-n {
+  display: inline-block;
+  min-width: 40px;
+}
+.menu-note {
+  display: block;
+  padding: 2px 8px;
+}
+/* §4.2 amber-field: editable inputs are amber with black text. */
+.amber-field,
+.panel-body input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.panel-body select {
+  background: var(--amber-field-bg);
+  color: var(--amber-field-fg);
+  border: 1px solid var(--amber-field-bg);
+}
+.amber-field:focus,
+.panel-body input:focus,
+.panel-body select:focus {
+  outline: 1px solid var(--title-bar-fg);
+}
+/* Hint mode labels. */
+.hint-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+}
+.hint-label {
+  position: absolute;
+  padding: 0 2px;
+  background: var(--amber-field-bg);
+  color: var(--amber-field-fg);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 13px;
+}
+.hint-label b {
+  color: var(--down);
+}
+.panel-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- data status line ---------- */
+.ds {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 1px 6px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-dim);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+.ds .src {
+  color: var(--text);
+}
+.lat {
+  padding: 0 4px;
+  font-weight: 700;
+  font-size: 10px;
+  color: var(--on-amber);
+}
+.lat-RT {
+  background: var(--up);
+}
+.lat-D {
+  background: var(--warn);
+}
+.lat-EOD {
+  background: var(--tag-eod);
+}
+.lat-CACHE {
+  background: var(--tag-cache);
+}
+.lat-STALE {
+  background: var(--dim);
+  color: var(--amber);
+}
+.lat-STALE::after {
+  content: " !";
+}
+.lat-DEMO {
+  background: var(--amber);
+}
+.personal-use {
+  color: var(--dim);
+  font-size: 10px;
+}
+.ds-err {
+  background: var(--err-bg);
+  color: var(--err-fg);
+  padding: 3px 6px;
+  border-bottom: 1px solid var(--down);
+  white-space: normal;
+}
+.ds-err b {
+  color: var(--down);
+}
+.ds-wait {
+  color: var(--amber);
+  padding: 3px 6px;
+  white-space: normal;
+}
+.ds-na {
+  color: var(--dim);
+  padding: 3px 6px;
+  white-space: normal;
+}
+.stale-data {
+  opacity: 0.45;
+  filter: grayscale(0.7);
+}
+.empty {
+  padding: 12px;
+  color: var(--text-dim);
+}
+.loading {
+  padding: 12px;
+  color: var(--fg-mute);
+}
+
+/* ---------- tables ---------- */
+table.grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+table.grid th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-2);
+  color: var(--fg);
+  text-align: right;
+  font-weight: 400;
+  padding: 1px 6px;
+  border-bottom: 1px solid var(--line-2);
+  white-space: nowrap;
+  cursor: pointer;
+  z-index: 1;
+}
+table.grid th.l,
+table.grid td.l {
+  text-align: left;
+}
+table.grid td {
+  padding: 1px 6px;
+  text-align: right;
+  color: var(--text);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--chart-grid);
+}
+table.grid tr.sel td {
+  background: var(--sel-bg);
+}
+table.grid tr:hover td {
+  background: var(--bg-2);
+}
+/* A market whose session is closed or on holiday (WEI, MON): readable, but recessed. */
+table.grid tr.closed td {
+  opacity: 0.55;
+}
+.up {
+  color: var(--up) !important;
+}
+.down {
+  color: var(--down) !important;
+}
+.amber {
+  color: var(--fg) !important;
+}
+.dim {
+  color: var(--text-dim) !important;
+}
+.cyan {
+  color: var(--accent) !important;
+}
+button.link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--link);
+  cursor: pointer;
+}
+button.link:hover,
+button.link:focus-visible {
+  text-decoration: underline;
+}
+/* §4.2 cb-up / cb-down: in the colour-blind palette links are also underlined. */
+[data-colors="COLORBLIND"] a,
+[data-colors="COLORBLIND"] button.link {
+  text-decoration: underline;
+}
+.flash-up {
+  animation: flashUp 0.3s ease-out; /* §4.2: 300 ms tick flash */
+}
+.flash-down {
+  animation: flashDown 0.3s ease-out;
+}
+@keyframes flashUp {
+  0% {
+    background: var(--flash-up);
+  }
+  100% {
+    background: transparent;
+  }
+}
+@keyframes flashDown {
+  0% {
+    background: var(--flash-down);
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+/* ---------- toolbar inside panels ---------- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  padding: 2px 6px;
+  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto;
+}
+.toolbar .sep {
+  width: 1px;
+  height: 14px;
+  background: var(--line-2);
+  margin: 0 4px;
+}
+.hint {
+  color: var(--fg-mute);
+  font-size: 11px;
+}
+kbd {
+  font: inherit;
+  color: var(--accent);
+}
+
+/* ---------- key/value grid ---------- */
+.kv {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 1px 14px;
+  padding: 4px 8px;
+}
+.kv dt {
+  color: var(--fg);
+}
+.kv dd {
+  margin: 0;
+  color: var(--text);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.section-title {
+  color: var(--on-amber);
+  background: var(--fg-dim);
+  padding: 0 6px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* ---------- ticker tape ---------- */
+.tape {
+  height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-sunken);
+  display: flex;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+.tape-inner {
+  display: inline-block;
+  animation: tape linear infinite;
+}
+.tape:hover .tape-inner {
+  animation-play-state: paused;
+}
+.tape-item {
+  margin-right: 22px;
+  color: var(--text);
+}
+.tape-item b {
+  color: var(--fg);
+  font-weight: 400;
+  margin-right: 6px;
+}
+@keyframes tape {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- status bar ---------- */
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 22px;
+  padding: 0 8px;
+  border-top: 1px solid var(--line);
+  background: var(--bg-1);
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 11px;
+}
+.statusbar .clock b {
+  color: var(--fg);
+  font-weight: 400;
+  margin-right: 4px;
+}
+.statusbar .clock {
+  color: var(--text);
+}
+.sb-sep {
+  width: 1px;
+  height: 12px;
+  background: var(--line-2);
+}
+.mkt {
+  color: var(--text-dim);
+}
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 4px;
+  vertical-align: 0;
+}
+.dot-ok,
+.dot-open {
+  background: var(--up);
+}
+.dot-degraded {
+  background: var(--warn);
+}
+.dot-limit {
+  /* the plan's budget is spent: an answer, not an outage */
+  background: transparent;
+  border: 1px solid var(--warn);
+}
+.dot-down {
+  background: var(--down);
+}
+.dot-disabled,
+.dot-na {
+  background: transparent;
+  border: 1px solid var(--dim);
+}
+.dot-closed {
+  background: var(--dot-closed);
+}
+.dot-idle {
+  background: var(--dot-idle);
+}
+.sb-right {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.sb-markets {
+  display: flex;
+  gap: 10px;
+}
+.sb-label {
+  color: var(--text-dim);
+  font-size: 10px;
+}
+.mkt-code {
+  margin-left: 4px;
+  color: var(--text);
+}
+.sb-off {
+  color: var(--text-dim);
+}
+
+/* OFFLINE (SPEC §6.3): text + dot, not colour alone */
+.sb-offline {
+  font-weight: 700;
+  color: var(--down);
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+/* ---------- overlays ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.overlay-box {
+  background: var(--bg-1);
+  border: 1px solid var(--fg);
+  padding: 10px 14px;
+  min-width: 640px;
+  max-height: 85vh;
+  overflow: auto;
+}
+.overlay-box h2 {
+  font-size: 13px;
+  margin: 0 0 6px;
+  color: var(--on-amber);
+  background: var(--fg);
+  padding: 1px 6px;
+}
+.toast {
+  position: fixed;
+  right: 12px;
+  bottom: 30px;
+  z-index: 90;
+  background: var(--bg-2);
+  border: 1px solid var(--fg-dim);
+  color: var(--text);
+  padding: 4px 10px;
+  max-width: 480px;
+}
+.toast.error {
+  border-color: var(--down);
+  color: var(--err-fg);
+}
+.boot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--fg);
+}
+pre.log {
+  margin: 0;
+  padding: 4px 6px;
+  color: var(--text);
+  font: inherit;
+  font-size: 11px;
+  white-space: pre-wrap;
+  user-select: text;
+}
+pre.help-page {
+  margin: 0;
+  padding: 6px 8px;
+  color: var(--text);
+  font: inherit;
+  white-space: pre-wrap;
+  user-select: text;
+}
+.sel-text {
+  user-select: text;
+}
+
+/* ---------- uPlot (dark) ---------- */
+.uplot-box .uplot {
+  font-family: var(--font);
+}
+.uplot-box .u-legend {
+  font-size: 11px;
+  color: var(--text);
+  text-align: left;
+}
+.uplot-box .u-legend th {
+  font-weight: 400;
+}
+.uplot-box .u-select {
+  background: var(--amber-wash);
+}
+
+/* ---------- tabs / forms ---------- */
+.tabs {
+  display: flex;
+  gap: 2px;
+}
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 3px 6px;
+  border-bottom: 1px solid var(--line);
+}
+.form-row label {
+  color: var(--fg);
+}
+.form-row input {
+  width: 80px;
+}
+
+/* In the top bar's empty right end: large, but never over a window's title bar, its
+   95–97 items or its link dot (review 1b #13). */
+.demo-badge {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  height: 28px;
+  padding: 0 18px;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--on-amber);
+  background: var(--amber-strong);
+  pointer-events: none;
+}
+
+.vgrid {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  font-variant-numeric: tabular-nums;
+}
+.vgrid-head,
+.vgrid-row {
+  display: flex;
+  white-space: nowrap;
+}
+.vgrid-head {
+  color: var(--amber);
+  border-bottom: 1px solid var(--grid-line);
+}
+.vgrid-body {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+.vgrid-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+}
+.vgrid-row.alt {
+  background: var(--bg-row-alt);
+}
+.vgrid .r {
+  text-align: right;
+  padding-right: 6px;
+}
+.vgrid .l {
+  padding-left: 4px;
+}
+.na {
+  color: var(--dim);
+}
+
+/* ---------- windows, tabs, links (SPEC §4.9) ---------- */
+.mode-tag {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+.panel-cmd {
+  display: flex;
+  height: 22px;
+  flex: 0 0 22px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+}
+.panel-cmd .cmd input {
+  font-size: 13px;
+}
+.panel.active .panel-cmd {
+  background: var(--bg-2);
+}
+.link-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--fg-dim);
+  background: transparent;
+  cursor: pointer;
+}
+.link-red {
+  background: var(--link-red);
+  border-color: var(--link-red);
+}
+.link-green {
+  background: var(--link-green);
+  border-color: var(--link-green);
+}
+.link-blue {
+  background: var(--link-blue);
+  border-color: var(--link-blue);
+}
+.link-yellow {
+  background: var(--link-yellow);
+  border-color: var(--link-yellow);
+}
+.tabs {
+  display: flex;
+  gap: 2px;
+}
+.tab {
+  padding: 0 6px;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+.tab.on {
+  color: var(--on-amber);
+  background: var(--fg-dim);
+}
+.panel.active .tab.on {
+  background: var(--fg);
+}
+.free-area {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+.panel.free {
+  position: absolute;
+}
+.panel.free > .panel-head {
+  cursor: move;
+}
+.panel.free.max {
+  inset: 0;
+  z-index: 100;
+}
+.panel.component > .panel-head {
+  background: var(--bg-sunken);
+}
+.resize-grip {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  cursor: nwse-resize;
+  border-right: 2px solid var(--fg-dim);
+  border-bottom: 2px solid var(--fg-dim);
+}
+/* FX matrix: ▲ ▼ beside the rate, so direction is not shown by colour alone (#31). */
+.dir-mark {
+  display: inline-block;
+  width: 1.2ch;
+  margin-left: 2px;
+  font-size: 9px;
+}
+
+/* HELP → Data sources: one block per provider (SPEC §1.7). */
+.notice {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--grid-line);
+  white-space: normal;
+  line-height: 1.45;
+}
+.notice .link {
+  margin-left: 6px;
+}
+
+/* HELP index topics 1) 2) 3). */
+.help-topics {
+  display: flex;
+  gap: 12px;
+  padding: 4px 8px;
+}
+
+/* GP studies menu (`I`) */
+.gp-menu {
+  position: absolute;
+  right: 70px;
+  top: 4px;
+  z-index: 4;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  padding: 4px 8px;
+  min-width: 240px;
+}
+.gp-menu > div {
+  padding: 1px 2px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.gp-menu > div.sel {
+  background: var(--sel-bg);
+}
+input.bad {
+  outline: 1px solid var(--down);
+}
+/* GP compare overlays (`C`) */
+.gp-chip {
+  white-space: nowrap;
+  margin-right: 8px;
+}
+.gp-chip button {
+  padding: 0 3px;
+  margin-left: 2px;
+}
+
+/* MON (SPEC §8): group header rows and the amber add row under the list. */
+table.grid tr.grp td {
+  font-weight: 600;
+  border-bottom: 1px solid var(--fg);
+  padding-top: 4px;
+}
+.mon-add {
+  position: sticky;
+  bottom: 0;
+  background: var(--bg);
+  padding: 2px 0;
+}
+.mon-add input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* News: TOP / CN (SPEC §8) — list + reader pane. */
+.news-toolbar {
+  flex-wrap: wrap;
+  row-gap: 2px;
+}
+.news-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  container-type: inline-size;
+}
+.news-body-inner {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+.news-list {
+  flex: 3;
+  min-width: 0;
+  overflow: auto;
+}
+.news-row {
+  padding: 2px 6px;
+  border-bottom: 1px solid var(--chart-grid);
+  display: grid;
+  grid-template-columns: 44px 30px 30px 120px 1fr;
+  gap: 6px;
+  cursor: default;
+}
+.news-row.sel {
+  background: var(--sel-bg);
+}
+.news-src {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.news-head {
+  color: var(--text);
+}
+.news-new {
+  color: var(--fg);
+  font-weight: 700;
+}
+.news-chip {
+  margin: 0 0 0 4px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  line-height: 15px;
+}
+.news-reader {
+  flex: 2;
+  min-width: 220px;
+  max-width: 460px;
+  overflow: auto;
+  padding: 4px 8px;
+  border-left: 1px solid var(--chart-grid);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.news-reader-head {
+  color: var(--text);
+  font-weight: 700;
+}
+.news-summary {
+  white-space: normal;
+}
+.news-similar-row {
+  padding-left: 6px;
+}
+.news-reader .link {
+  text-align: left;
+  align-self: flex-start;
+  padding: 0;
+}
+/* A narrow window (the classic 2×2 default): the reader goes under the list. */
+@container (max-width: 760px) {
+  .news-body-inner {
+    flex-direction: column;
+  }
+  .news-body-inner .news-reader {
+    flex: 0 0 auto;
+    max-width: none;
+    max-height: 40%;
+    border-left: 0;
+    border-top: 1px solid var(--chart-grid);
+  }
+}
+
+/* ECO (SPEC §8): official release calendar — day groups, the next release, upcoming rows. */
+.eco {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.eco-toolbar {
+  row-gap: 2px;
+  column-gap: 12px;
+}
+.eco-nextbox {
+  margin-left: auto;
+}
+.eco-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.eco-table td.eco-event {
+  white-space: normal;
+  min-width: 14ch;
+}
+table.grid.eco-table tr.eco-upcoming td {
+  color: var(--text-dim);
+}
+table.grid.eco-table tr.eco-upcoming td.eco-event {
+  color: var(--text);
+}
+table.grid.eco-table tr.eco-next td {
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+}
+.eco-empty {
+  padding: 8px 6px;
+  color: var(--text-dim);
+}
+.eco-foot {
+  flex: 0 0 auto;
+  padding: 2px 6px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+}
+
+/* ECST (SPEC §8): series list + history detail; stacks in narrow windows. */
+.ecst {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.ecst-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  container-type: inline-size;
+}
+.ecst-list {
+  flex: 0 0 240px;
+  overflow: auto;
+  border-right: 1px solid var(--chart-grid);
+}
+.ecst-group {
+  padding: 4px 6px 1px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--fg);
+}
+.ecst-item {
+  padding: 1px 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ecst-item.sel {
+  background: var(--sel-bg);
+}
+.ecst-detail {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.ecst-head,
+.ecst-facts {
+  padding: 2px 6px;
+}
+.ecst-facts {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 14px;
+}
+.ecst-chart {
+  flex: 1;
+  min-height: 160px;
+  padding: 4px;
+}
+.ecst-table {
+  flex: 0 0 auto;
+  max-height: 40%;
+  overflow: auto;
+}
+@container (max-width: 620px) {
+  .ecst-list {
+    flex-basis: 150px;
+  }
+}
+
+/* JRNL: amber entry fields above the trade list and the by-tag stats. */
+.jrnl {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.jrnl-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: flex-end;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--line);
+}
+.jrnl-field {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+}
+.jrnl-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.jrnl-thesis {
+  white-space: normal !important;
+  min-width: 18ch;
+}
+.jrnl-tags {
+  margin-top: 8px;
+}

@@ -1,0 +1,34 @@
+# last_reviewed: 2026-11-09
+# Index codes (CODE INDEX) -> provider symbols. Unlisted ^XXX symbols map generically to "XXX INDEX".
+# eodhd: EODHD Free index code, checked against its INDX symbol list 2026-11-09 (FTSE 100 is
+# not in it); calendar: the exchange whose sessions time the EODHD close. EU/Nordic only (D13).
+# mic: the exchange_calendars calendar of the sessions the index is computed in (WEI and CDR
+# state and hours); venue: its name when no exchanges.csv row has that calendar.
+# currency: the currency the index level is expressed in (none for VIX: volatility points).
+id,name,yahoo,country,tz,currency,eodhd,calendar,mic,venue
+SPX,S&P 500,^GSPC,US,America/New_York,USD,,,XNYS,
+NDX,Nasdaq 100,^NDX,US,America/New_York,USD,,,XNYS,
+INDU,Dow Jones Industrial Average,^DJI,US,America/New_York,USD,,,XNYS,
+RTY,Russell 2000,^RUT,US,America/New_York,USD,,,XNYS,
+VIX,Cboe Volatility Index,^VIX,US,America/Chicago,,,,,
+SX5E,Euro Stoxx 50,^STOXX50E,EU,Europe/Berlin,EUR,STOXX50E.INDX,GY,XETR,
+DAX,DAX,^GDAXI,DE,Europe/Berlin,EUR,GDAXI.INDX,GY,XETR,
+UKX,FTSE 100,^FTSE,GB,Europe/London,GBP,,,XLON,
+CAC,CAC 40,^FCHI,FR,Europe/Paris,EUR,FCHI.INDX,FP,XPAR,
+AEX,AEX,^AEX,NL,Europe/Amsterdam,EUR,AEX.INDX,NA,XAMS,
+SMI,Swiss Market Index,^SSMI,CH,Europe/Zurich,CHF,SSMI.INDX,SW,XSWX,
+OMXC25,OMX Copenhagen 25,^OMXC25,DK,Europe/Copenhagen,DKK,OMXC25.INDX,DC,XCSE,
+OMX,OMX Stockholm 30,^OMX,SE,Europe/Stockholm,SEK,OMXS30.INDX,SS,XSTO,
+NKY,Nikkei 225,^N225,JP,Asia/Tokyo,JPY,,,XTKS,
+HSI,Hang Seng,^HSI,HK,Asia/Hong_Kong,HKD,,,XHKG,
+SPTSX,S&P/TSX Composite,^GSPTSE,CA,America/Toronto,CAD,,,XTSE,Toronto Stock Exchange
+IBOV,Ibovespa,^BVSP,BR,America/Sao_Paulo,BRL,,,BVMF,B3 (Sao Paulo)
+MEXBOL,S&P/BMV IPC,^MXX,MX,America/Mexico_City,MXN,,,XMEX,Bolsa Mexicana de Valores
+AS51,S&P/ASX 200,^AXJO,AU,Australia/Sydney,AUD,,,XASX,ASX (Sydney)
+FTSEMIB,FTSE MIB,FTSEMIB.MI,IT,Europe/Rome,EUR,,,XMIL,Borsa Italiana
+IBEX,IBEX 35,^IBEX,ES,Europe/Madrid,EUR,,,XMAD,BME (Madrid)
+SHCOMP,SSE Composite,000001.SS,CN,Asia/Shanghai,CNY,,,XSHG,Shanghai Stock Exchange
+KS11,KOSPI,^KS11,KR,Asia/Seoul,KRW,,,XKRX,
+TWII,TAIEX,^TWII,TW,Asia/Taipei,TWD,,,XTAI,Taiwan Stock Exchange
+NSEI,Nifty 50,^NSEI,IN,Asia/Kolkata,INR,,,XBOM,NSE (BSE calendar: same sessions and holidays)
+STI,Straits Times,^STI,SG,Asia/Singapore,SGD,,,XSES,Singapore Exchange

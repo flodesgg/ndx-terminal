@@ -1,0 +1,38 @@
+# last_reviewed: 2026-11-09
+# OMX Copenhagen 25 (OMXC25) constituents, the "Denmark C25" seed watchlist (SPEC §5, §8 MON).
+# Compiled by hand from Nasdaq's public files, not from a data feed:
+#   constituents: Nasdaq "OMX Copenhagen 25 Index, Data as of: 08/03/2026"
+#     https://www.nasdaq.com/docs/global-indexes/OMXC25-aug-2026
+#   semi-annual review effective 2025-12-22 (FLS in, NDA DK out):
+#     https://mondovisione.com/news/nasdaq-announces-semi-annual-changes-to-the-omx-copenhagen-25-index-20251212
+#   semi-annual review effective 2026-06-22 (NDA DK in, BAVA out):
+#     https://mondovisione.com/media-and-resources/news/nasdaq-announces-semi-annual-changes-to-the-omx-copenhagen-25-index-2026612/
+# No extraordinary change was announced between 2026-08-03 and the review date above. The next
+# semi-annual review takes effect in late December 2026: re-check this file after it is announced.
+# nasdaq: the symbol as Nasdaq Copenhagen lists it; id: our canonical ID (SPEC §5).
+id,name,nasdaq
+MAERSKA DC EQUITY,A.P. Moller-Maersk A,MAERSK A
+MAERSKB DC EQUITY,A.P. Moller-Maersk B,MAERSK B
+ALSYDB DC EQUITY,AL Sydbank,ALSYDB
+AMBUB DC EQUITY,Ambu B,AMBU B
+CARLB DC EQUITY,Carlsberg B,CARL B
+COLOB DC EQUITY,Coloplast B,COLO B
+DANSKE DC EQUITY,Danske Bank,DANSKE
+DEMANT DC EQUITY,Demant,DEMANT
+DSV DC EQUITY,DSV,DSV
+FLS DC EQUITY,FLSmidth & Co.,FLS
+GMAB DC EQUITY,Genmab,GMAB
+GN DC EQUITY,GN Store Nord,GN
+ISS DC EQUITY,ISS,ISS
+JYSK DC EQUITY,Jyske Bank,JYSK
+NKT DC EQUITY,NKT,NKT
+NDADK DC EQUITY,Nordea Bank Abp,NDA DK
+NOVOB DC EQUITY,Novo Nordisk B,NOVO B
+NSISB DC EQUITY,Novonesis B,NSIS B
+ORSTED DC EQUITY,Orsted,ORSTED
+PNDORA DC EQUITY,Pandora,PNDORA
+ROCKB DC EQUITY,Rockwool B,ROCK B
+RBREW DC EQUITY,Royal Unibrew,RBREW
+TRYG DC EQUITY,Tryg,TRYG
+VWS DC EQUITY,Vestas Wind Systems,VWS
+ZEAL DC EQUITY,Zealand Pharma,ZEAL

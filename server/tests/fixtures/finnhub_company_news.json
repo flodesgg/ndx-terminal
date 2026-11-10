@@ -1,0 +1,4 @@
+[
+ {"category": "company", "datetime": 1793990000, "headline": "Test Co announces product", "id": 1001, "image": "", "related": "TEST", "source": "Example Wire", "summary": "Summary one.", "url": "https://example.com/news/1001"},
+ {"category": "company", "datetime": 1793980000, "headline": "Test Co quarterly results", "id": 1002, "image": "", "related": "TEST", "source": "Example Daily", "summary": "Summary two.", "url": "https://example.com/news/1002"}
+]
